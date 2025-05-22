@@ -9,15 +9,17 @@ function MainPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-    axiosInstance
-      .get("/movie/now_playing", { 
-        params: {
-          page: page,
-        },
-      })
-      .then((res) => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const res = await axiosInstance.get("/movie/now_playing", {
+          params: {
+            page: page,
+          },
+        });
+
         if (res.data && Array.isArray(res.data.results)) {
           setMovies(res.data.results);
         } else if (res.data && res.data.status_code) {
@@ -27,17 +29,20 @@ function MainPage() {
           setError("Unexpected API response: 'results' is missing or not an array.");
           setMovies([]);
         }
-        setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("API Error Details:", {
           message: err.message,
           response: err.response ? err.response.data : "No response data",
           status: err.response ? err.response.status : "No status",
         });
         setError("Failed to load movies. Please check the console for details.");
+        setMovies([]);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchMovies();
   }, [page]);
 
   return (
