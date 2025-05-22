@@ -1,1 +1,34 @@
 /* Global Styling */
+:root {
+  --movies-bg: #1e2129;
+  --movies-card: #212529;
+  --movies-text: #ffffff;
+  --movies-muted: #c0c0c0;
+  --movies-highlight: #00acc1;
+  --fmovies-border: #3c3c3c;
+}
+
+body {
+  background-color: var(--movies-bg);
+  color: var(--movies-text);
+}
+
+.card.movies {
+  background-color: var(--movies-card);
+  border: 1px solid var(--movies-border);
+  color: var(--movies-text);
+}
+
+.text-muted {
+  color: var(--movies-muted) !important ; 
+}
+
+.btn-movies {
+  background-color: var(--movies-highlight);
+  color: black;
+  border: none;
+}
+
+.btn-movies:hover {
+  background-color: #0097a7; 
+}
