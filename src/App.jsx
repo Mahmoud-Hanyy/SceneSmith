@@ -5,12 +5,14 @@ import Navbar from './components/Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import MainPage from './pages/MainPage';
 import MainCards from './components/MainCards';
+import Search from './components/Search';
 function App() {
 
   return (
      <BrowserRouter>
       <Navbar />
        <div className="container my-5">
+        <Search></Search>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/movie/:id" element={<MainCards />} />
