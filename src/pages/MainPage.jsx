@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MainCards from '../components/MainCards';
 import axiosInstance from "../apis/config";
 
@@ -8,42 +8,42 @@ function MainPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+  const fetchMovies = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        const res = await axiosInstance.get("/movie/now_playing", {
-          params: {
-            page: page,
-          },
-        });
+      const res = await axiosInstance.get("/movie/now_playing", {
+        params: {
+          page: page,
+        },
+      });
 
-        if (res.data && Array.isArray(res.data.results)) {
-          setMovies(res.data.results);
-        } else if (res.data && res.data.status_code) {
-          setError(`API Error: ${res.data.status_message}`);
-          setMovies([]);
-        } else {
-          setError("Unexpected API response: 'results' is missing or not an array.");
-          setMovies([]);
-        }
-      } catch (err) {
-        console.error("API Error Details:", {
-          message: err.message,
-          response: err.response ? err.response.data : "No response data",
-          status: err.response ? err.response.status : "No status",
-        });
-        setError("Failed to load movies. Please check the console for details.");
+      if (res.data && Array.isArray(res.data.results)) {
+        setMovies(res.data.results);
+      } else if (res.data && res.data.status_code) {
+        setError(`API Error: ${res.data.status_message}`);
         setMovies([]);
-      } finally {
-        setLoading(false);
+      } else {
+        setError("Unexpected API response: 'results' is missing or not an array.");
+        setMovies([]);
       }
-    };
-
-    fetchMovies();
+    } catch (err) {
+      console.error("API Error Details:", {
+        message: err.message,
+        response: err.response ? err.response.data : "No response data",
+        status: err.response ? err.response.status : "No status",
+      });
+      setError("Failed to load movies. Please check the console for details.");
+      setMovies([]);
+    } finally {
+      setLoading(false);
+    }
   }, [page]);
+
+  useEffect(() => {
+    fetchMovies();
+  }, [fetchMovies]); // Dependency: fetchMovies (which depends on page)
 
   return (
     <div className="text-light">
