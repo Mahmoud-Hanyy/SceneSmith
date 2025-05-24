@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
 import axiosInstance from "../apis/config";
 
-export default function Search() {
-  const [searchKey, setSearchKey] = useState('');
+export default function Search({type = 'movie'}) {
+  const [searchKey, setSearchKey] = useState("");
 
+  // a function to fetch the data we are searching for
   const fetching = useCallback(() => {
-   
     axiosInstance
-      .get("/search/movie", {
+      .get(`/search/${type}`, {
         params: {
           query: searchKey,
         },
       })
-      .then( res => console.log(res.data.results))
+      .then((res) => console.log(res.data.results))
       .catch((err) => {
         // Handle any errors that occur during the API call
         console.error("Error fetching movie data:", err);
@@ -34,27 +34,31 @@ export default function Search() {
           console.log(`Error: ${err.message}`);
         }
       });
+  }, [searchKey,type]);
 
-    //   console.log(response.data)
-  },[searchKey]);
-
+  // handle the search on click the button
   const handleSearch = () => {
-     if (!searchKey.trim()) {
+    if (!searchKey.trim()) {
       alert("Please enter a name to search for.");
       return;
     }
-    fetching()
-  }
+    fetching();
+  };
 
+  // handle the search on press enter
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
+      if (!searchKey.trim()) {
+        alert("Please enter a name to search for.");
+        return;
+      }
       fetching();
     }
   };
 
   useEffect(() => {
-    fetching()
-  },[fetching])
+    fetching();
+  }, [fetching]);
 
   return (
     <div className="row ">
