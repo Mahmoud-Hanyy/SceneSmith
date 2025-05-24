@@ -20,7 +20,6 @@ function App() {
        <div className="container my-5">
         <SearchContext.Provider value={{search, setSearch}}>
         <SearchKeyContext.Provider value={{searchKeyword,setSearchKeyword}}>
-        <Search></Search>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/movie/:id" element={<MainCards />} />
