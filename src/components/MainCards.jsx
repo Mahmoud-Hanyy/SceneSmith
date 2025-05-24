@@ -29,8 +29,8 @@ function MainCards(props) {
       </div>
       <div className="card-body">
         <div className="content-left">
-          <h5 className="card-title">{data.title}</h5>
-          <p className="card-text">{data.release_date}</p>
+          <h5 className="card-title" style={{color:'#1e2129'}}>{data.title}</h5>
+          <p className="card-text" style={{color:'#1e2129'}} >{data.release_date}</p>
         </div>
         <div className="content-right">
           <span className="heart-icon">♡</span>

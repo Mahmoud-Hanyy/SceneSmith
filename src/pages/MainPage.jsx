@@ -47,14 +47,14 @@ function MainPage() {
 
   return (
     <div className="text-light">
-      <h2>Now Playing</h2>
+      <h2 style={{fontWeight:'bold'}}>Now Playing</h2>
       <hr className="border-light" />
       <div>
         {loading && <p className="text-light">Loading...</p>}
         {error && <p className="text-danger">{error}</p>}
         {!loading && !error && (
           <>
-            <div className="row row-cols-1 row-cols-md-5 g-2">
+            <div className="row row-cols-1 row-cols-md-5 g-4">
               {movies.map((movie) => (
                 <div className="col" key={movie.id}>
                   <MainCards data={movie} />
@@ -70,7 +70,9 @@ function MainPage() {
               >
                 Previous
               </button>
-              <span className="text-light">Page {page}</span>
+              <span className="text-light" style={{
+                marginTop:'7px'
+              }}>Page {page}</span>
               <button
                 className="btn btn-movies"
                 onClick={() => setPage(page + 1)}

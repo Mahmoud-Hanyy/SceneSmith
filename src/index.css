@@ -1,4 +1,6 @@
 /* Global Styling */
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
 :root {
   --movies-bg: #1e2129;
   --movies-card: #212529;
@@ -6,11 +8,13 @@
   --movies-muted: #c0c0c0;
   --movies-highlight: #00acc1;
   --fmovies-border: #3c3c3c;
+  --prim-font:'Poppins';
 }
 
 body {
   background-color: var(--movies-bg);
   color: var(--movies-text);
+  font-family: var(--prim-font);
 }
 
 .card.movies {
@@ -19,16 +23,23 @@ body {
   color: var(--movies-text);
 }
 
+
 .text-muted {
   color: var(--movies-muted) !important ; 
 }
 
 .btn-movies {
-  background-color: var(--movies-highlight);
-  color: black;
-  border: none;
+  background-color: var(--movies-text);
+  color: var(--movies-bg);
 }
 
 .btn-movies:hover {
-  background-color: #0097a7; 
+  background-color: var(--movies-bg);
+  color: white;
+}
+
+.dropdown-menu{
+  color: var(--movies-bg);
+  background-color: white;
+  font-weight: bold;
 }
