@@ -17,7 +17,7 @@ body {
   font-family: var(--prim-font);
 }
 
-.card.movies {
+.card-movies {
   background-color: var(--movies-card);
   border: 1px solid var(--movies-border);
   color: var(--movies-text);

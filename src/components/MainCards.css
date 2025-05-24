@@ -21,7 +21,7 @@
   object-fit: cover;
 }
 
-.card-body {
+.main-card-body {
   padding: 10px;
   flex-grow: 1;
   display: flex;
@@ -73,7 +73,7 @@
 
 .card-text {
   font-size: 13px;
-  color: #666;
+  color: #8b8a8a;
   margin: 0;
   font-weight: 300;
 }

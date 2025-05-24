@@ -7,7 +7,7 @@ function MainCards(props) {
   const navigate = useNavigate();
 
   const handleNavigate = (movieId) => {
-    navigate(`/movie/${movieId}`);
+    navigate(`/movie-details/${movieId}`);
   };
 
   const imageUrl = data.poster_path
@@ -27,7 +27,7 @@ function MainCards(props) {
           {rating}%
         </div>
       </div>
-      <div className="card-body">
+      <div className="main-card-body">
         <div className="content-left">
           <h5 className="card-title" style={{color:'#1e2129'}}>{data.title}</h5>
           <p className="card-text" style={{color:'#1e2129'}} >{data.release_date}</p>
