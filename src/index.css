@@ -13,7 +13,7 @@ body {
   color: var(--movies-text);
 }
 
-.card.movies {
+.card-movies {
   background-color: var(--movies-card);
   border: 1px solid var(--movies-border);
   color: var(--movies-text);
@@ -31,4 +31,15 @@ body {
 
 .btn-movies:hover {
   background-color: #0097a7; 
+}
+.btn-movies-outline {
+  background-color: transparent;
+  color: var(--movies-highlight);
+  border: 2px solid var(--movies-highlight);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-movies-outline:hover {
+  background-color: var(--movies-highlight);
+  color: black;
 }
