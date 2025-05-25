@@ -2,6 +2,7 @@ import MovieDetailsCard from '../components/MovieDetailsCard'
 import axiosInstance from '../apis/config';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import ReviewList from '../components/ReviewList';
 
 export default function MovieDetails() {
     const [movieDetails, setMovieDetails] = useState(null);
@@ -24,7 +25,7 @@ export default function MovieDetails() {
         return (
             <>
                 <MovieDetailsCard movie={movieDetails} />
-
+                <ReviewList ID={params.id}/>
             </>
         );
     }else{
