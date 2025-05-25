@@ -34,7 +34,7 @@ console.log(location.pathname);
     <Navbar/>
        <div className="container my-5">
 
-        //search component  will appear only here 
+        {/* { search component  will appear only here } */}
         {
          (location.pathname === "/"
             || location.pathname === "/tv-shows"
