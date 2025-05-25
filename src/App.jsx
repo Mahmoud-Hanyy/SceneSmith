@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import MainPage from './pages/MainPage';
 import MovieDetails from './pages/MovieDetails';
+import TvShows from './pages/TvShows';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/movie-details/:id" element={<MovieDetails />} />
+        <Route path="/tv-shows" element={<TvShows />} />
       </Routes>
       </div>
      </BrowserRouter>
