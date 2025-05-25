@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [activeTab, setActiveTab] = useState("Movies");
-
+  const navigate = useNavigate();
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+  const handleTVShowsNavigate = (path) => {
+    navigate(`/tv-shows`);
+  }
+  const handleMoviesNavigate = (path) => {
+    navigate(`/`);
+  }
 
   return (
     <nav
@@ -78,7 +84,7 @@ function Navbar() {
                 className={`btn ${
                   activeTab === "Movies" ? "btn-light" : "btn-outline-light"
                 }`}
-                onClick={() => handleTabClick("Movies")}
+                onClick={() => handleMoviesNavigate("Movies")}
               >
                 Movies
               </button>
@@ -90,7 +96,7 @@ function Navbar() {
                     ? "btn-light"
                     : "btn-outline-light"
                 }`}
-                onClick={() => handleTabClick("TV Shows")}
+                onClick={() => handleTVShowsNavigate()}
               >
                 TV Shows
               </button>
