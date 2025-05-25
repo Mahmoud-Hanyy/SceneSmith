@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import MainPage from './pages/MainPage';
 import MovieDetails from './pages/MovieDetails';
 import TvShows from './pages/TvShows';
-import TvShowsDetails from './pages/TvShowsDetails';
 
 function App() {
 
@@ -17,7 +16,6 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/movie-details/:id" element={<MovieDetails />} />
         <Route path="/tv-shows" element={<TvShows />} />
-        <Route path="/tv-shows/:id" element={<TvShowsDetails />} />
       </Routes>
       </div>
      </BrowserRouter>

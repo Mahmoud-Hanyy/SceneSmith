@@ -4,20 +4,26 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 function Navbar() {
   const [activeTab, setActiveTab] = useState("Movies");
   const navigate = useNavigate();
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
   const handleTVShowsNavigate = (path) => {
     navigate(`/tv-shows`);
-  }
+  };
   const handleMoviesNavigate = (path) => {
     navigate(`/`);
-  }
+  };
+
+  // Determine active tab based on current path
+  React.useEffect(() => {
+    if (window.location.pathname === "/") {
+      setActiveTab("Movies");
+    } else if (window.location.pathname.startsWith("/tv-shows")) {
+      setActiveTab("TV Shows");
+    }
+  }, [window.location.pathname]);
 
   return (
     <nav
       className="navbar navbar-expand-lg"
-      style={{ backgroundColor: "#1e2129", borderBottom:'3px solid white' }}
+      style={{ backgroundColor: "#1e2129", borderBottom: "3px solid white" }}
     >
       <div className="container-fluid">
         <Link
@@ -84,7 +90,12 @@ function Navbar() {
                 className={`btn ${
                   activeTab === "Movies" ? "btn-light" : "btn-outline-light"
                 }`}
-                onClick={() => handleMoviesNavigate("Movies")}
+                onClick={() => {
+                  if (activeTab !== "Movies") {
+                    handleMoviesNavigate();
+                  }
+                }}
+                disabled={activeTab === "Movies"}
               >
                 Movies
               </button>
@@ -92,17 +103,27 @@ function Navbar() {
             <li className="nav-item">
               <button
                 className={`btn ${
-                  activeTab === "TV Shows"
-                    ? "btn-light"
-                    : "btn-outline-light"
+                  activeTab === "TV Shows" ? "btn-light" : "btn-outline-light"
                 }`}
-                onClick={() => handleTVShowsNavigate()}
+                onClick={() => {
+                  if (activeTab !== "TV Shows") {
+                    handleTVShowsNavigate();
+                  }
+                }}
+                disabled={activeTab === "TV Shows"}
               >
                 TV Shows
               </button>
             </li>
-            <li className="nav-item position-relative" style={{marginTop:'5px'}}>
-              <Link to="/watchlist" className="nav-link" style={{color:'white'}}>
+            <li
+              className="nav-item position-relative"
+              style={{ marginTop: "5px" }}
+            >
+              <Link
+                to="/watchlist"
+                className="nav-link"
+                style={{ color: "white" }}
+              >
                 🤍 Watchlist
                 <span
                   className="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-secondary"
