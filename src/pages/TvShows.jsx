@@ -1,17 +1,22 @@
 import React, { useState, useEffect, useCallback } from "react";
 import MainCards from "../components/MainCards";
 import axiosInstance from "../apis/config";
+import { useNavigate } from "react-router";
 
 export default function TvShows() {
   const [shows, setShows] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const navigate=useNavigate();
+ const onTvShowClick=(seriesId)=>{
+  navigate(`/details/tv/${seriesId}`)
+ }
   const fetchShows = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
+
       const res = await axiosInstance.get("tv/popular", {
         params: {
           page: page,
@@ -58,7 +63,7 @@ export default function TvShows() {
             <div className="row row-cols-1 row-cols-md-5 g-4">
               {shows.map((show) => (
                 <div className="col" key={show.id}>
-                  <MainCards data={show} />
+                  <MainCards data={show} onCardClick={()=>{onTvShowClick(show.id)}} />
                 </div>
               ))}
             </div>
