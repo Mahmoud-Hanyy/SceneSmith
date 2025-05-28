@@ -31,19 +31,15 @@ export default function Details() {
                 {
                     type === "movie" &&
                     <>
-              
-                        
+
                         <ReviewList ID={id} />
-          <row className="d-flex justify-content-center"> 
+                        <div className="d-flex justify-content-center">
 
 
-
-
-                        
-                            <div className='col-lg-9 col-md-9'>
+                            <div className='col-lg-9 col-md-9 col-12'>
                                 <RecommendationMovie movieId={id} />
                             </div>
- </row>
+                        </div>
 
                     </>
                 }
