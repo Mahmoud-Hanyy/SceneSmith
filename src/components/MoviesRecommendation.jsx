@@ -74,7 +74,7 @@ function MoviesRecommendation({ movieId }) {
 if(movies){
   return (
  <>
-    <div className="container  justify-content-center mt-5 p-5 " >
+    <div className="container  mt-5 p-5 " >
       <h2 className="text-white fw-bold">
         Recommended Movies
       </h2>
