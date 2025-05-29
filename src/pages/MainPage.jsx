@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import MainCards from '../components/MainCards';
+import MainCards from "../components/MainCards";
 import axiosInstance from "../apis/config";
 import { useNavigate } from "react-router";
 
@@ -8,10 +8,10 @@ function MainPage() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
- const navigate=useNavigate();
- const onMovieClick=(movieId)=>{
-  navigate(`/details/movie/${movieId}`)
- }
+  const navigate = useNavigate();
+  const onMovieClick = (movieId) => {
+    navigate(`/details/movie/${movieId}`);
+  };
   const fetchMovies = useCallback(async () => {
     try {
       setLoading(true);
@@ -29,7 +29,9 @@ function MainPage() {
         setError(`API Error: ${res.data.status_message}`);
         setMovies([]);
       } else {
-        setError("Unexpected API response: 'results' is missing or not an array.");
+        setError(
+          "Unexpected API response: 'results' is missing or not an array.",
+        );
         setMovies([]);
       }
     } catch (err) {
@@ -50,24 +52,32 @@ function MainPage() {
   }, [fetchMovies]); // Dependency: fetchMovies (which depends on page)
 
   return (
-    <div className="text-light">
-      <h2 style={{fontWeight:'bold'}}>Now Playing</h2>
+    <div className="text-light px-2 px-md-4">
+      {/* Heading */}
+      <h2 className="fw-bold">Now Playing</h2>
       <hr className="border-light" />
+
+      {/* Loading / Error / Content */}
       <div>
         {loading && <p className="text-light">Loading...</p>}
         {error && <p className="text-danger">{error}</p>}
+
         {!loading && !error && (
           <>
-            <div className="row row-cols-1 row-cols-md-5 g-4">
+            {/* Responsive Movie Grid */}
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
               {movies.map((movie) => (
                 <div className="col" key={movie.id}>
-                  <MainCards data={movie} onCardClick={()=>onMovieClick(movie.id)}/>
-                  
+                  <MainCards
+                    data={movie}
+                    onCardClick={() => onMovieClick(movie.id)}
+                  />
                 </div>
               ))}
             </div>
 
-            <div className="d-flex justify-content-center mt-4 gap-3">
+            {/* Pagination Controls */}
+            <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 mt-4">
               <button
                 className="btn btn-movies"
                 disabled={page === 1}
@@ -75,9 +85,7 @@ function MainPage() {
               >
                 Previous
               </button>
-              <span className="text-light" style={{
-                marginTop:'7px'
-              }}>Page {page}</span>
+              <span className="text-light">Page {page}</span>
               <button
                 className="btn btn-movies"
                 onClick={() => setPage(page + 1)}

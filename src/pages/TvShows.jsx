@@ -49,7 +49,7 @@ export default function TvShows() {
 
   useEffect(() => {
     fetchShows();
-  }, [fetchShows]);
+  }, [fetchShows]); 
 
   return (
     <div className="text-light">
