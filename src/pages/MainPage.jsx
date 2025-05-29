@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import MainCards from '../components/MainCards';
 import axiosInstance from "../apis/config";
+import { useNavigate } from "react-router";
 
 function MainPage() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+ const navigate=useNavigate();
+ const onMovieClick=(movieId)=>{
+  navigate(`/details/movie/${movieId}`)
+ }
   const fetchMovies = useCallback(async () => {
     try {
       setLoading(true);
@@ -57,7 +61,8 @@ function MainPage() {
             <div className="row row-cols-1 row-cols-md-5 g-4">
               {movies.map((movie) => (
                 <div className="col" key={movie.id}>
-                  <MainCards data={movie} />
+                  <MainCards data={movie} onCardClick={()=>onMovieClick(movie.id)}/>
+                  
                 </div>
               ))}
             </div>

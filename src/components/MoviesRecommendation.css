@@ -1,0 +1,50 @@
+/* Center mode styles */
+.center .slick-slide {
+  opacity: 0.7;
+  transform: scale(0.9);
+  transition: all 0.7s ease;
+}
+
+.center .slick-slide.slick-center {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+.custom-arrow {
+ 
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+.slick-prev {
+  left: -50px;
+}
+
+.slick-next {
+  right: -50px;
+}
+
+
+.slick-dots {
+  bottom: -90px;
+}
+
+.slick-dots li button:before {
+  color: white;
+  opacity: 0.5;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 5;
+  color:#00acc1
+}
+
+

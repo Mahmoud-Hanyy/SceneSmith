@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import Rating from "./Rating";
 
-export default function MovieDetailsCard({ movie }) {
+export default function DetailsCard({ show: show }) {
+  const isSeries = !!show.first_air_date;
+
   return (
     <motion.div
       className="container pt-5"
@@ -10,17 +12,19 @@ export default function MovieDetailsCard({ movie }) {
       exit={{ scale: 0.8, opacity: 0 }}
       transition={{ duration: 0.6, ease: "easeInOut" }}
     >
+                {/* boxShadow: "5px 5px 20px rgba(221, 230, 240, 0.7)", */}
+
       <div
         className="card-movies"
         style={{
-          boxShadow: "5px 5px 20px rgba(0, 123, 255, 0.7)",
+          boxShadow: "5px 5px 20px rgba(221, 230, 240, 0.7)",
           borderRadius: "12px",
         }}
       >
         <div className="row g-0 ">
           <div className="col-12 col-md-3 ">
             <img
-              src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+              src={`https://image.tmdb.org/t/p/w300/${show.poster_path}`}
               className="img-fluid w-100"
               style={{ borderRadius: "12px", maxHeight: "100%" }}
               alt="poster"
@@ -37,7 +41,7 @@ export default function MovieDetailsCard({ movie }) {
                   paddingBottom: "5px",
                 }}
               >
-                {movie.title}
+                {show.title || show.name}
               </h1>
               <p
                 className="card-text text-muted"
@@ -45,11 +49,12 @@ export default function MovieDetailsCard({ movie }) {
                   paddingBottom: "5px",
                 }}
               >
-                {movie.release_date}
+                {show.release_date || show.first_air_date}
+
               </p>
               <div className="d-flex">
-                <Rating rate={movie.vote_average / 2} />
-                <h6 className="ps-3 text-muted">{movie.vote_count} votes</h6>
+                <Rating rate={show.vote_average / 2} />
+                <h6 className="ps-3 text-muted">{show.vote_count} votes</h6>
               </div>
               <p
                 className="card-text mt-2"
@@ -57,10 +62,10 @@ export default function MovieDetailsCard({ movie }) {
                   fontSize: "16px",
                 }}
               >
-                {movie.overview}
+                {show.overview}
               </p>
               <div className="w-100 d-flex mt-4 flex-wrap">
-                {movie.genres.map((item) => (
+                {show.genres.map((item) => (
                   <p key={item.id} className="badge p-2 btn-movies ms-2">
                     {item.name}
                   </p>
@@ -69,18 +74,47 @@ export default function MovieDetailsCard({ movie }) {
 
               <div className="d-flex w-100 justify-content-start pt-2">
                 <p className="ps-1 small text-muted fst-italic">
-                  <span className="fw-bold">Duration</span>: {movie.runtime} min
+                  <span className="fw-bold">Duration:</span>{" "}
+                  {show.runtime
+                    ? `${show.runtime} min`
+                    : show.episode_run_time?.[0]
+                      ? `${show.episode_run_time[0]} min / ep`
+                      : "N/A"}
                 </p>
                 <p className="ps-5 small text-muted fst-italic">
                   <span className="fw-bold">Language</span>:{" "}
-                  {movie.spoken_languages.map((item) => item.name).join(", ")}
+                  {show.spoken_languages.map((item) => item.name).join(", ")}
                 </p>
               </div>
+              {isSeries && (
+                <>
+                  <div className="d-flex w-100 d-flex justify-content-between text-muted small mt-2">
+                    
+                    <p className="pe-4">
+                      <span className="fw-bold">Seasons:</span> {show.number_of_seasons}
+                    </p>
+                    <p className="pe-4">
+                      <span className="fw-bold">Episodes:</span> {show.number_of_episodes}
+                    </p>
+                    <p className="pe-4">
+                      <span className="fw-bold">Status:</span> {show.status}
+                    </p>
+                  </div>
+                  <p className="text-muted small">
+                    <span className="fw-bold">Created by:</span>{" "}
+                    {show.created_by?.map((c) => c.name).join(", ") || "N/A"}
+                  </p>
+                  <p className="text-muted small">
+                    <span className="fw-bold">Networks:</span>{" "}
+                    {show.networks?.map((n) => n.name).join(", ") || "N/A"}
+                  </p>
+                </>
+              )}
 
               <div className="mt-3 d-flex justify-content-between w-100">
-                {movie.production_companies &&
-                  movie.production_companies[0] &&
-                  movie.production_companies[0].logo_path && (
+                {show.production_companies &&
+                  show.production_companies[0] &&
+                  show.production_companies[0].logo_path && (
                     <button
                       className="btn btn-movies-outline"
                       style={{
@@ -90,7 +124,7 @@ export default function MovieDetailsCard({ movie }) {
                     >
                       <img
                         className=" ms-1"
-                        src={`https://image.tmdb.org/t/p/w200/${movie.production_companies[0].logo_path}`}
+                        src={`https://image.tmdb.org/t/p/w200/${show.production_companies[0].logo_path}`}
                         style={{
                           height: "40px",
                           width: "auto",
@@ -104,7 +138,7 @@ export default function MovieDetailsCard({ movie }) {
 
                 <a
                   className="ps-2"
-                  href={movie.homepage}
+                  href={show.homepage}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

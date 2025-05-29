@@ -2,7 +2,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Navbar from './components/Navbar';
 import { BrowserRouter, Routes, Route ,useLocation} from 'react-router';
 import MainPage from './pages/MainPage';
-import MovieDetails from './pages/MovieDetails';
+import Details from './pages/DetailsPage';
 import TvShows from './pages/TvShows';
 import SearchContext from './context/searchContext';
 import SearchKeyContext from './context/searchKeyContext'
@@ -45,7 +45,7 @@ console.log(location.pathname);
          <Routes>
         <Route path="/" element={<MainPage />} />
        <Route path="/search-results" element={<ResultsPage></ResultsPage>} />
-        <Route path="/movie-details/:id" element={<MovieDetails />} />
+        <Route path="/details/:type/:id" element={<Details />} />
         <Route path="/tv-shows" element={<TvShows />} />
 
           </Routes>

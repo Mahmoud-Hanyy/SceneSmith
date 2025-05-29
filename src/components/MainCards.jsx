@@ -2,12 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainCards.css';
 
-function MainCards(props) {
-  const { data } = props;
-  const navigate = useNavigate();
+function MainCards({data,onCardClick}) {
 
-  const handleNavigate = (movieId) => {
-    navigate(`/movie-details/${movieId}`);
+  const handleNavigation = (id) => {
+    onCardClick(id)
   };
 
   const imageUrl = data.poster_path
@@ -20,7 +18,7 @@ function MainCards(props) {
   if (rating < 40) circleColor = '#ff4444';
 
   return (
-    <div className="card main-card" onClick={() => handleNavigate(data.id)}>
+    <div className="card main-card" onClick={() => handleNavigation(data.id)}>
       <div className="image-container">
         <img src={imageUrl} className="card-img-top" alt={data.title} />
         <div className="rating-circle" style={{ backgroundColor: circleColor }}>
@@ -29,8 +27,9 @@ function MainCards(props) {
       </div>
       <div className="main-card-body">
         <div className="content-left">
-          <h5 className="card-title" style={{color:'#1e2129'}}>{data.title}</h5>
-          <p className="card-text" style={{color:'#1e2129'}} >{data.release_date}</p>
+          <h5 className="card-title" style={{color:'#1e2129'}}>{data.title || data.name}
+</h5>
+          <p className="card-text" style={{color:'#1e2129'}} >{data.release_date || data.first_air_date }</p>
         </div>
         <div className="content-right">
           <span className="heart-icon">♡</span>
