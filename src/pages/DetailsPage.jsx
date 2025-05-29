@@ -3,7 +3,7 @@ import axiosInstance from "../apis/config";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ReviewList from "../components/ReviewList";
-import RecommendationMovie from "../components/MoviesRecommendation";
+import RecommendationMovie from "../components/Recommendation";
 
 export default function Details() {
   const [details, setDetails] = useState(null);

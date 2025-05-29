@@ -4,7 +4,7 @@ import axiosInstance from "../apis/config";
 import MainCards from "./MainCards";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./MoviesRecommendation.css";
+import "./Recommendation.css";
 import { useNavigate } from "react-router";
 
 const NextArrow = ({ onClick }) => (
@@ -15,11 +15,11 @@ const PrevArrow = ({ onClick }) => (
   <div className="slick-prev custom-arrow" onClick={onClick}></div>
 );
 
-function MoviesRecommendation({ movieId }) {
-  const [movies, setMovies] = useState([]);
+function Recommendation({ type, id }) {
+  const [shows, setMovies] = useState([]);
   const navigate = useNavigate();
-  const onMovieClick = (selectedMovieId) => {
-    navigate(`/details/movie/${selectedMovieId}`);
+  const onShowClick = (selectedShowId) => {
+    navigate(`/details/${type}/${selectedShowId}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -48,7 +48,7 @@ function MoviesRecommendation({ movieId }) {
   const fetchRecommendations = async () => {
     try {
       const response = await axiosInstance.get(
-        `/movie/${movieId}/recommendations`,
+        `/${type}/${id}/recommendations`,
       );
       setMovies(response.data.results || []);
     } catch (error) {
@@ -58,9 +58,9 @@ function MoviesRecommendation({ movieId }) {
 
   useEffect(() => {
     fetchRecommendations();
-  }, [movieId]);
+  }, [type, id]);
 
-  if (!movies.length) {
+  if (!shows.length) {
     return (
       <div className="text-center py-3">
         <strong>No recommendations</strong>
@@ -68,21 +68,25 @@ function MoviesRecommendation({ movieId }) {
     );
   }
 
-  if (movies) {
+  if (shows) {
     return (
       <>
         <div className="container  mt-5 p-5 ">
-          <h2 className="text-white fw-bold">Recommended Movies</h2>
+          <h2 className="text-white fw-bold">
+            Recommended Movies
+            {type === "tv" && "Recommended Tv Shows"}
+            {type === "movie" && "Recommended Movies"}
+          </h2>
           <hr />
 
           <div className="mb-5 p-3">
             <Slider {...settings}>
-              {movies.map((movie) => (
-                <div key={movie.id}>
+              {shows.map((show) => (
+                <div key={show.id}>
                   <MainCards
-                    data={movie}
+                    data={show}
                     onCardClick={() => {
-                      onMovieClick(movie.id);
+                      onShowClick(show.id);
                     }}
                   />
                 </div>
@@ -96,4 +100,4 @@ function MoviesRecommendation({ movieId }) {
   }
 }
 
-export default MoviesRecommendation;
+export default Recommendation;
