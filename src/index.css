@@ -8,7 +8,7 @@
   --movies-muted: #c0c0c0;
   --movies-highlight: #00acc1;
   --fmovies-border: #3c3c3c;
-  --prim-font:'Poppins';
+  --prim-font: 'Poppins';
 }
 
 body {
@@ -25,7 +25,7 @@ body {
 
 
 .text-muted {
-  color: var(--movies-muted) !important ; 
+  color: var(--movies-muted) !important;
 }
 
 .btn-movies {
@@ -38,7 +38,7 @@ body {
   color: white;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   color: var(--movies-bg);
   background-color: white;
   font-weight: bold;

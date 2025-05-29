@@ -8,10 +8,10 @@ export default function TvShows() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate=useNavigate();
- const onTvShowClick=(seriesId)=>{
-  navigate(`/details/tv/${seriesId}`)
- }
+  const navigate = useNavigate();
+  const onTvShowClick = (seriesId) => {
+    navigate(`/details/tv/${seriesId}`);
+  };
   const fetchShows = useCallback(async () => {
     try {
       setLoading(true);
@@ -49,11 +49,11 @@ export default function TvShows() {
 
   useEffect(() => {
     fetchShows();
-  }, [fetchShows]); 
+  }, [fetchShows]);
 
   return (
     <div className="text-light">
-      <h2 style={{fontWeight:'bold'}}>Popular Shows</h2>
+      <h2 style={{ fontWeight: "bold" }}>Popular Shows</h2>
       <hr className="border-light" />
       <div>
         {loading && <p className="text-light">Loading...</p>}
@@ -63,7 +63,12 @@ export default function TvShows() {
             <div className="row row-cols-1 row-cols-md-5 g-4">
               {shows.map((show) => (
                 <div className="col" key={show.id}>
-                  <MainCards data={show} onCardClick={()=>{onTvShowClick(show.id)}} />
+                  <MainCards
+                    data={show}
+                    onCardClick={() => {
+                      onTvShowClick(show.id);
+                    }}
+                  />
                 </div>
               ))}
             </div>
@@ -76,9 +81,14 @@ export default function TvShows() {
               >
                 Previous
               </button>
-              <span className="text-light" style={{
-                marginTop:'7px'
-              }}>Page {page}</span>
+              <span
+                className="text-light"
+                style={{
+                  marginTop: "7px",
+                }}
+              >
+                Page {page}
+              </span>
               <button
                 className="btn btn-movies"
                 onClick={() => setPage(page + 1)}

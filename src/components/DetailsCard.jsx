@@ -12,7 +12,7 @@ export default function DetailsCard({ show: show }) {
       exit={{ scale: 0.8, opacity: 0 }}
       transition={{ duration: 0.6, ease: "easeInOut" }}
     >
-                {/* boxShadow: "5px 5px 20px rgba(221, 230, 240, 0.7)", */}
+      {/* boxShadow: "5px 5px 20px rgba(221, 230, 240, 0.7)", */}
 
       <div
         className="card-movies"
@@ -50,7 +50,6 @@ export default function DetailsCard({ show: show }) {
                 }}
               >
                 {show.release_date || show.first_air_date}
-
               </p>
               <div className="d-flex">
                 <Rating rate={show.vote_average / 2} />
@@ -78,8 +77,8 @@ export default function DetailsCard({ show: show }) {
                   {show.runtime
                     ? `${show.runtime} min`
                     : show.episode_run_time?.[0]
-                      ? `${show.episode_run_time[0]} min / ep`
-                      : "N/A"}
+                    ? `${show.episode_run_time[0]} min / ep`
+                    : "N/A"}
                 </p>
                 <p className="ps-5 small text-muted fst-italic">
                   <span className="fw-bold">Language</span>:{" "}
@@ -89,12 +88,13 @@ export default function DetailsCard({ show: show }) {
               {isSeries && (
                 <>
                   <div className="d-flex w-100 d-flex justify-content-between text-muted small mt-2">
-                    
                     <p className="pe-4">
-                      <span className="fw-bold">Seasons:</span> {show.number_of_seasons}
+                      <span className="fw-bold">Seasons:</span>{" "}
+                      {show.number_of_seasons}
                     </p>
                     <p className="pe-4">
-                      <span className="fw-bold">Episodes:</span> {show.number_of_episodes}
+                      <span className="fw-bold">Episodes:</span>{" "}
+                      {show.number_of_episodes}
                     </p>
                     <p className="pe-4">
                       <span className="fw-bold">Status:</span> {show.status}
