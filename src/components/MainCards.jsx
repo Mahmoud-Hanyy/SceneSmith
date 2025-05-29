@@ -1,15 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./MainCards.css";
+import noImage from "../assets/noImage.png";
 
 function MainCards({ data, onCardClick }) {
   const handleNavigation = (id) => {
     onCardClick(id);
   };
 
-  const imageUrl = data.poster_path
-    ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
-    : "https://via.placeholder.com/200x300";
+  const imageUrl =
+    data.poster_path && data.poster_path !== "null"
+      ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
+      : noImage;
+
   const rating = Math.round(data.vote_average * 10);
 
   let circleColor = "#21d07a";
@@ -19,7 +22,7 @@ function MainCards({ data, onCardClick }) {
   return (
     <div className="card main-card" onClick={() => handleNavigation(data.id)}>
       <div className="image-container">
-        <img src={imageUrl} className="card-img-top" alt={data.title} />
+        <img src={imageUrl} className="card-img-top" />
         <div className="rating-circle" style={{ backgroundColor: circleColor }}>
           {rating}%
         </div>

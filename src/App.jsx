@@ -37,7 +37,7 @@ function HandleRouting() {
         )}
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/search-results" element={<ResultsPage></ResultsPage>} />
+          <Route path="/search-results" element={<ResultsPage />} />
           <Route path="/details/:type/:id" element={<Details />} />
           <Route path="/tv-shows" element={<TvShows />} />
           <Route path="*" element={<ErrorPage />} />
