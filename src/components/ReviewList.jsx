@@ -20,7 +20,7 @@ export default function ReviewList({type,id}) {
     fetchReviews();
   }, [page,id,type]);
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" >
       <h2 className="mb-4 text-center">Reviews</h2>
      
       {reviews.length === 0 ? (
