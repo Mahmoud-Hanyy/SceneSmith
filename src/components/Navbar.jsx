@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Navbar() {
   const [activeTab, setActiveTab] = useState("Movies");
@@ -10,6 +11,7 @@ function Navbar() {
   const handleMoviesNavigate = (path) => {
     navigate(`/`);
   };
+  const watchlistCount = useSelector((state) => state.watchlist.watchlistCount);
 
   // Determine active tab based on current path
   React.useEffect(() => {
@@ -129,7 +131,7 @@ function Navbar() {
                   className="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-secondary"
                   style={{ fontSize: "0.6rem", padding: "5px 7px" }}
                 >
-                  0
+                  {watchlistCount}
                 </span>
               </Link>
             </li>
