@@ -9,11 +9,13 @@ const watchlistSlice = createSlice({
   reducers: {
     addMovieToWatchlist: (state, action) => {
       const movieId = action.payload.id;
+      const data = action.payload;
       const movieData = {
-        title: action.payload.title,
-        poster_path: action.payload.poster_path,
-        release_date: action.payload.release_date,
-        vote_average: action.payload.vote_average,
+        title: data.title,
+        poster_path: data.poster_path,
+        release_date: data.release_date,
+        vote_average: data.vote_average,
+        overview: data.overview,
       };
       if (state.watchlist["movies"][movieId]) {
         return;
@@ -28,11 +30,13 @@ const watchlistSlice = createSlice({
     },
     addShowToWatchlist: (state, action) => {
       const showId = action.payload.id;
+      const data = action.payload;
       const showData = {
-        title: action.payload.title,
-        poster_path: action.payload.poster_path,
-        release_date: action.payload.release_date,
-        vote_average: action.payload.vote_average,
+        name: data.name,
+        poster_path: data.poster_path,
+        first_air_date: data.first_air_date,
+        vote_average: data.vote_average,
+        overview: data.overview,
       };
       if (state.watchlist["shows"][showId]) {
         return;

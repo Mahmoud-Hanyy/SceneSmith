@@ -7,22 +7,30 @@ import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addMovieToWatchlist,
+  addShowToWatchlist,
   removeMovieFromWatchlist,
+  removeShowFromWatchlist,
 } from "../store/slices/watchlistSlice";
 
-function MainCards({ data, onCardClick }) {
-  const moviesWatchlist = useSelector(
-    (state) => state.watchlist.watchlist["movies"]
-  );
+function MainCards({ data, category, onCardClick }) {
+  const watchlist = useSelector((state) => state.watchlist.watchlist[category]);
   const handleNavigation = (id) => {
     onCardClick(id);
   };
   const dispatch = useDispatch();
   const addToWatchlist = () => {
-    dispatch(addMovieToWatchlist(data));
+    category === "movies"
+      ? dispatch(addMovieToWatchlist(data))
+      : category === "shows"
+      ? dispatch(addShowToWatchlist(data))
+      : null;
   };
   const removeFromWatchlist = () => {
-    dispatch(removeMovieFromWatchlist(data));
+    category === "movies"
+      ? dispatch(removeMovieFromWatchlist(data))
+      : category === "shows"
+      ? dispatch(removeShowFromWatchlist(data))
+      : null;
   };
 
   const imageUrl = data.poster_path
@@ -59,7 +67,7 @@ function MainCards({ data, onCardClick }) {
           </p>
         </div>
         <div className="content-right">
-          {moviesWatchlist[data.id] ? (
+          {watchlist[data.id] ? (
             <FontAwesomeIcon
               icon={faHeartSolid}
               style={{ color: "yellow" }}

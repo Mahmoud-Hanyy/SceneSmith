@@ -30,7 +30,7 @@ export default function TvShows() {
         setShows([]);
       } else {
         setError(
-          "Unexpected API response: 'results' is missing or not an array.",
+          "Unexpected API response: 'results' is missing or not an array."
         );
         setShows([]);
       }
@@ -65,6 +65,7 @@ export default function TvShows() {
                 <div className="col" key={show.id}>
                   <MainCards
                     data={show}
+                    category={"shows"}
                     onCardClick={() => {
                       onTvShowClick(show.id);
                     }}
