@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
   const [activeTab, setActiveTab] = useState("Movies");
@@ -126,7 +128,7 @@ function Navbar() {
                 className="nav-link"
                 style={{ color: "white" }}
               >
-                🤍 Watchlist
+                <FontAwesomeIcon icon={faHeartSolid} /> Watchlist
                 <span
                   className="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-secondary"
                   style={{ fontSize: "0.6rem", padding: "5px 7px" }}

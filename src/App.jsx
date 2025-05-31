@@ -1,4 +1,5 @@
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import MainPage from "./pages/MainPage";
