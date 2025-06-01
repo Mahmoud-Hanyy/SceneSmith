@@ -1,4 +1,5 @@
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import MainPage from "./pages/MainPage";
@@ -10,6 +11,7 @@ import Search from "./components/Search";
 import ResultsPage from "./pages/ResultsPage";
 import { useState } from "react";
 import ErrorPage from "./pages/ErrorPage";
+import Watchlist from "./pages/WatchlistPage";
 import {LanguageProvider} from "./context/LanguageContext"
 
 function App() {
@@ -43,6 +45,7 @@ function HandleRouting() {
           <Route path="/search-results" element={<ResultsPage />} />
           <Route path="/details/:type/:id" element={<Details />} />
           <Route path="/tv-shows" element={<TvShows />} />
+          <Route path="/watchlist" element={<Watchlist />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>

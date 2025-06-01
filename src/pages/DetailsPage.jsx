@@ -6,10 +6,13 @@ import ReviewList from "../components/ReviewList";
 import Recommendation from "../components/Recommendation";
 import { useLanguage } from '../context/LanguageContext';
 
+
+
 export default function Details() {
   const [details, setDetails] = useState(null);
   const { id, type } = useParams();
   const { language } = useLanguage();
+  const category = type === "movie" ? "movies" : "shows";
 
   const getDetails = async () => {
     try {
@@ -25,6 +28,7 @@ export default function Details() {
 
   useEffect(() => {
     getDetails();
+
   }, [id, type , language]);
 
   if (details) {
@@ -38,7 +42,7 @@ export default function Details() {
 
             <div className="d-flex justify-content-center">
               <div className="col-lg-9 col-md-9 col-12">
-                <Recommendation type={type} id={id} />
+                <Recommendation type={type} category={category} id={id} />
               </div>
             </div>
           </>

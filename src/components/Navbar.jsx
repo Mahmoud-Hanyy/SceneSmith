@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { useLanguage } from '../context/LanguageContext';
 
 function Navbar() {
@@ -13,6 +16,7 @@ function Navbar() {
   const handleMoviesNavigate = (path) => {
     navigate(`/`);
   };
+  const watchlistCount = useSelector((state) => state.watchlist.watchlistCount);
 
   // Determine active tab based on current path
   React.useEffect(() => {
@@ -123,12 +127,12 @@ function Navbar() {
                 className="nav-link"
                 style={{ color: "white" }}
               >
-                🤍 Watchlist
+                <FontAwesomeIcon icon={faHeartSolid} /> Watchlist
                 <span
                   className="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-secondary"
                   style={{ fontSize: "0.6rem", padding: "5px 7px" }}
                 >
-                  0
+                  {watchlistCount}
                 </span>
               </Link>
             </li>

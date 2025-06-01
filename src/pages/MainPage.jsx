@@ -34,7 +34,7 @@ function MainPage() {
         setMovies([]);
       } else {
         setError(
-          "Unexpected API response: 'results' is missing or not an array.",
+          "Unexpected API response: 'results' is missing or not an array."
         );
         setMovies([]);
       }
@@ -74,6 +74,7 @@ function MainPage() {
                 <div className="col" key={movie.id}>
                   <MainCards
                     data={movie}
+                    category={"movies"}
                     onCardClick={() => onMovieClick(movie.id)}
                   />
                 </div>

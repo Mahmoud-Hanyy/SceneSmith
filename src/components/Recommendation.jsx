@@ -4,24 +4,21 @@ import axiosInstance from "../apis/config";
 import MainCards from "./MainCards";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./Recommendation.css"; 
+import "./Recommendation.css";
 import { useNavigate } from "react-router";
 import { useLanguage } from '../context/LanguageContext';
 
-
 const NextArrow = ({ onClick }) => (
-  <div className="slick-next custom-arrow" onClick={onClick}>
-
-  </div>
+  <div className="slick-next custom-arrow" onClick={onClick}></div>
 );
 
 const PrevArrow = ({ onClick }) => (
-  <div className="slick-prev custom-arrow" onClick={onClick}>
-  </div>
+  <div className="slick-prev custom-arrow" onClick={onClick}></div>
 );
 
-function Recommendation({ type,id }) {
+function Recommendation({ type, id, category }) {
   const [shows, setMovies] = useState([]);
+
   const navigate =useNavigate()
   const { language } = useLanguage();
 
@@ -46,14 +43,17 @@ function Recommendation({ type,id }) {
     slidesToScroll: 1,
     focusOnSelect: true,
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 1, centerPadding: "50px" } },
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 1, centerPadding: "50px" },
+      },
       { breakpoint: 768, settings: { slidesToShow: 1, centerPadding: "40px" } },
-
-    ]
+    ],
   };
 
   const fetchRecommendations = async () => {
     try {
+
       const response = await axiosInstance.get(`/${type}/${id}/recommendations`, {
         params: { language },
       });
@@ -61,10 +61,9 @@ function Recommendation({ type,id }) {
     } catch (error) {
       console.error("Error fetching recommendations:", error);
     }
-  }
+  };
 
   useEffect(() => {
-
     fetchRecommendations();
   }, [type,id,language]);
 
@@ -77,39 +76,36 @@ function Recommendation({ type,id }) {
     );
   }
 
-if(shows){
-  return (
- <>
-    <div className="container  mt-5 p-5 " >
-      <h2 className="text-white fw-bold">
-        {type==="tv" &&      
-          "Recommended Tv Shows"
- }
-        {type==="movie" &&      
-          "Recommended Movies"
- }
-      </h2>
-      <hr/>
+  if (shows) {
+    return (
+      <>
+        <div className="container  mt-5 p-5 ">
+          <h2 className="text-white fw-bold">
+            {type === "tv" && "Recommended Tv Shows"}
+            {type === "movie" && "Recommended Movies"}
+          </h2>
+          <hr />
 
-      
-        <div className="mb-5 p-3">
-   <Slider {...settings}>
-          {shows.map((show) => (
-            <div key={show.id} >
-              <MainCards data={show} onCardClick={() => { onShowClick(show.id)}} />
-            </div>
-          ))}
-        </Slider>
+          <div className="mb-5 p-3">
+            <Slider {...settings}>
+              {shows.map((show) => (
+                <div key={show.id}>
+                  <MainCards
+                    data={show}
+                    category={category}
+                    onCardClick={() => {
+                      onShowClick(show.id);
+                    }}
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
         </div>
-     
-
-      
-    </div>
-    <hr/>
-    </>
-  );
+        <hr />
+      </>
+    );
+  }
 }
-}
-
 
 export default Recommendation;
