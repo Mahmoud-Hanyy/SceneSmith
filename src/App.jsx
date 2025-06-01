@@ -11,6 +11,7 @@ import Search from "./components/Search";
 import ResultsPage from "./pages/ResultsPage";
 import { useState } from "react";
 import ErrorPage from "./pages/ErrorPage";
+import Watchlist from "./pages/WatchlistPage";
 
 function App() {
   const [search, setSearch] = useState();
@@ -41,6 +42,7 @@ function HandleRouting() {
           <Route path="/search-results" element={<ResultsPage></ResultsPage>} />
           <Route path="/details/:type/:id" element={<Details />} />
           <Route path="/tv-shows" element={<TvShows />} />
+          <Route path="/watchlist" element={<Watchlist />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>

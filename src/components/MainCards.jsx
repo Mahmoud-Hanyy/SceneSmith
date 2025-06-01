@@ -26,10 +26,11 @@ function MainCards({ data, category, onCardClick }) {
       : null;
   };
   const removeFromWatchlist = () => {
+    const id = data.id;
     category === "movies"
-      ? dispatch(removeMovieFromWatchlist(data))
+      ? dispatch(removeMovieFromWatchlist(id))
       : category === "shows"
-      ? dispatch(removeShowFromWatchlist(data))
+      ? dispatch(removeShowFromWatchlist(id))
       : null;
   };
 
@@ -70,13 +71,13 @@ function MainCards({ data, category, onCardClick }) {
           {watchlist[data.id] ? (
             <FontAwesomeIcon
               icon={faHeartSolid}
-              style={{ color: "yellow" }}
+              style={{ color: "#00acc1" }}
               onClick={() => removeFromWatchlist()}
             />
           ) : (
             <FontAwesomeIcon
               icon={faHeartRegular}
-              style={{ color: "yellow" }}
+              style={{ color: "#00acc1" }}
               onClick={() => addToWatchlist()}
             />
           )}
