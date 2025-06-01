@@ -3,12 +3,17 @@ import axiosInstance from "../apis/config";
 import { useNavigate } from "react-router";
 import SearchContext from "../context/searchContext";
 import SearchKeyContext from "../context/searchKeyContext";
+import { useLanguage } from '../context/LanguageContext';
+
+
 
 export default function Search({ type = "movie" }) {
   const [searchKey, setSearchKey] = useState("");
 
   const { _, setSearch } = useContext(SearchContext);
   const { __, setSearchKeyword } = useContext(SearchKeyContext);
+
+  const { language } = useLanguage();
 
   const navigate = useNavigate();
 
@@ -18,6 +23,7 @@ export default function Search({ type = "movie" }) {
       .get(`/search/${type}`, {
         params: {
           query: searchKey,
+           language ,
         },
       })
       .then((res) => {
@@ -71,7 +77,7 @@ export default function Search({ type = "movie" }) {
 
   useEffect(() => {
     fetching();
-  }, [fetching]);
+  }, [fetching, language]);
 
   return (
     <div className="row justify-content-center">

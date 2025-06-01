@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useLanguage } from '../context/LanguageContext';
 
 function Navbar() {
   const [activeTab, setActiveTab] = useState("Movies");
   const navigate = useNavigate();
+  const { language, setLanguage } = useLanguage();
+  
   const handleTVShowsNavigate = (path) => {
     navigate(`/tv-shows`);
   };
@@ -53,38 +56,34 @@ function Navbar() {
           <ul className="navbar-nav ms-auto gap-3 align-items-center">
             <li className="nav-item dropdown">
               <Link
-                style={{ color: "white" }}
-                className="nav-link dropdown-toggle"
-                to="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+              style={{ color: "white" }}
+              className="nav-link dropdown-toggle"
+              to="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
               >
-                EN
+                {language.toUpperCase()}
               </Link>
-              <ul className="dropdown-menu">
+            <ul className="dropdown-menu">
                 <li>
-                  <Link className="dropdown-item" to="#">
-                    EN
-                  </Link>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setLanguage('en')}
+                  >
+                  English
+                  </button>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="#">
-                    AR
-                  </Link>
+                  <button
+                  className="dropdown-item"
+                  onClick={() => setLanguage('ar')}
+                  >
+                  العربية
+                </button>
                 </li>
-                <li>
-                  <Link className="dropdown-item" to="#">
-                    FR
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="#">
-                    ZN
-                  </Link>
-                </li>
-              </ul>
-            </li>
+            </ul>
+          </li>
             <li className="nav-item">
               <button
                 className={`btn ${

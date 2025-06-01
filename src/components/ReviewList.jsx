@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import Rating from "./Rating";
 import axiosInstance from "../apis/config";
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ReviewList({type,id}) {
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const { language } = useLanguage();
 
  const fetchReviews = async () => {
-    const response = await axiosInstance.get(`/${type}/${id}/reviews`)
+    const response = await axiosInstance.get(`/${type}/${id}/reviews`, {
+      params: { language },
+    })
       
       const data = response.data
       setReviews(data.results);
@@ -18,7 +22,7 @@ export default function ReviewList({type,id}) {
   useEffect(() => {
    
     fetchReviews();
-  }, [page,id,type]);
+  }, [page,id,type,language]);
   return (
     <div className="container mt-5" >
       <h2 className="mb-4 text-center">Reviews</h2>
