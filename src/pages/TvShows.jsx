@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import MainCards from "../components/MainCards";
 import axiosInstance from "../apis/config";
 import { useNavigate } from "react-router";
+import { useLanguage } from '../context/LanguageContext';
 
 export default function TvShows() {
   const [shows, setShows] = useState([]);
@@ -9,6 +10,8 @@ export default function TvShows() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { language } = useLanguage();
+
   const onTvShowClick = (seriesId) => {
     navigate(`/details/tv/${seriesId}`);
   };
@@ -20,6 +23,7 @@ export default function TvShows() {
       const res = await axiosInstance.get("tv/popular", {
         params: {
           page: page,
+          language ,
         },
       });
 
@@ -49,7 +53,7 @@ export default function TvShows() {
 
   useEffect(() => {
     fetchShows();
-  }, [fetchShows]);
+  }, [fetchShows, language]);
 
   return (
     <div className="text-light">

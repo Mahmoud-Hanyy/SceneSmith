@@ -10,17 +10,20 @@ import Search from "./components/Search";
 import ResultsPage from "./pages/ResultsPage";
 import { useState } from "react";
 import ErrorPage from "./pages/ErrorPage";
+import {LanguageProvider} from "./context/LanguageContext"
 
 function App() {
   const [search, setSearch] = useState();
   const [searchKeyword, setSearchKeyword] = useState();
   return (
     <BrowserRouter>
+    <LanguageProvider>
       <SearchContext.Provider value={{ search, setSearch }}>
         <SearchKeyContext.Provider value={{ searchKeyword, setSearchKeyword }}>
           <HandleRouting />
         </SearchKeyContext.Provider>
       </SearchContext.Provider>
+    </LanguageProvider>
     </BrowserRouter>
   );
 }
