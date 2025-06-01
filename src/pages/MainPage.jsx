@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import MainCards from "../components/MainCards";
 import axiosInstance from "../apis/config";
 import { useNavigate } from "react-router";
+import { useLanguage } from '../context/LanguageContext';
 
 function MainPage() {
   const [movies, setMovies] = useState([]);
@@ -9,6 +10,8 @@ function MainPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { language } = useLanguage();
+
   const onMovieClick = (movieId) => {
     navigate(`/details/movie/${movieId}`);
   };
@@ -20,6 +23,7 @@ function MainPage() {
       const res = await axiosInstance.get("/movie/now_playing", {
         params: {
           page: page,
+          language ,
         },
       });
 
@@ -49,7 +53,7 @@ function MainPage() {
 
   useEffect(() => {
     fetchMovies();
-  }, [fetchMovies]); // Dependency: fetchMovies (which depends on page)
+  }, [fetchMovies,language]); // Dependency: fetchMovies (which depends on page)
 
   return (
     <div className="text-light px-2 px-md-4">

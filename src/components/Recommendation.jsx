@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Recommendation.css";
 import { useNavigate } from "react-router";
+import { useLanguage } from '../context/LanguageContext';
 
 const NextArrow = ({ onClick }) => (
   <div className="slick-next custom-arrow" onClick={onClick}></div>
@@ -17,11 +18,16 @@ const PrevArrow = ({ onClick }) => (
 
 function Recommendation({ type, id, category }) {
   const [shows, setMovies] = useState([]);
-  const navigate = useNavigate();
-  const onShowClick = (selectedShowId) => {
-    navigate(`/details/${type}/${selectedShowId}`);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+
+  const navigate =useNavigate()
+  const { language } = useLanguage();
+
+  const onShowClick=(selectedShowId)=>{
+  navigate(`/details/${type}/${selectedShowId}`)
+      window.scrollTo({ top: 0, behavior: 'smooth' }); 
+
+  }
+
 
   const settings = {
     className: "center",
@@ -47,9 +53,10 @@ function Recommendation({ type, id, category }) {
 
   const fetchRecommendations = async () => {
     try {
-      const response = await axiosInstance.get(
-        `/${type}/${id}/recommendations`
-      );
+
+      const response = await axiosInstance.get(`/${type}/${id}/recommendations`, {
+        params: { language },
+      });
       setMovies(response.data.results || []);
     } catch (error) {
       console.error("Error fetching recommendations:", error);
@@ -58,7 +65,8 @@ function Recommendation({ type, id, category }) {
 
   useEffect(() => {
     fetchRecommendations();
-  }, [type, id]);
+  }, [type,id,language]);
+
 
   if (!shows.length) {
     return (

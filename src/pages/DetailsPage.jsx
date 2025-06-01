@@ -4,14 +4,21 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import ReviewList from "../components/ReviewList";
 import Recommendation from "../components/Recommendation";
+import { useLanguage } from '../context/LanguageContext';
+
+
+
 export default function Details() {
   const [details, setDetails] = useState(null);
   const { id, type } = useParams();
+  const { language } = useLanguage();
   const category = type === "movie" ? "movies" : "shows";
 
   const getDetails = async () => {
     try {
-      const detailsResponse = await axiosInstance.get(`/${type}/${id}`);
+      const detailsResponse = await axiosInstance.get(`/${type}/${id}`, {
+        params: { language },
+      });
       setDetails(detailsResponse.data);
       console.log(details);
     } catch (error) {
@@ -21,7 +28,8 @@ export default function Details() {
 
   useEffect(() => {
     getDetails();
-  }, [id, type]);
+
+  }, [id, type , language]);
 
   if (details) {
     return (
@@ -43,9 +51,14 @@ export default function Details() {
     );
   } else {
     return (
-      <>
-        <p className="text-white">Loading</p>
-      </>
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <div className="spinner-border text-light" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
     );
   }
 }

@@ -12,17 +12,20 @@ import ResultsPage from "./pages/ResultsPage";
 import { useState } from "react";
 import ErrorPage from "./pages/ErrorPage";
 import Watchlist from "./pages/WatchlistPage";
+import {LanguageProvider} from "./context/LanguageContext"
 
 function App() {
   const [search, setSearch] = useState();
   const [searchKeyword, setSearchKeyword] = useState();
   return (
     <BrowserRouter>
+    <LanguageProvider>
       <SearchContext.Provider value={{ search, setSearch }}>
         <SearchKeyContext.Provider value={{ searchKeyword, setSearchKeyword }}>
           <HandleRouting />
         </SearchKeyContext.Provider>
       </SearchContext.Provider>
+    </LanguageProvider>
     </BrowserRouter>
   );
 }
@@ -39,7 +42,7 @@ function HandleRouting() {
         )}
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/search-results" element={<ResultsPage></ResultsPage>} />
+          <Route path="/search-results" element={<ResultsPage />} />
           <Route path="/details/:type/:id" element={<Details />} />
           <Route path="/tv-shows" element={<TvShows />} />
           <Route path="/watchlist" element={<Watchlist />} />

@@ -11,6 +11,7 @@ import {
   removeMovieFromWatchlist,
   removeShowFromWatchlist,
 } from "../store/slices/watchlistSlice";
+import noImage from "../assets/noImage.png";
 
 function MainCards({ data, category, onCardClick }) {
   const watchlist = useSelector((state) => state.watchlist.watchlist[category]);
@@ -34,9 +35,11 @@ function MainCards({ data, category, onCardClick }) {
       : null;
   };
 
-  const imageUrl = data.poster_path
-    ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
-    : "https://via.placeholder.com/200x300";
+  const imageUrl =
+    data.poster_path && data.poster_path !== "null"
+      ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
+      : noImage;
+
   const rating = Math.round(data.vote_average * 10);
 
   let circleColor = "#21d07a";
@@ -50,6 +53,7 @@ function MainCards({ data, category, onCardClick }) {
         onClick={() => handleNavigation(data.id)}
       >
         <img src={imageUrl} className="card-img-top" alt={data.title} />
+
         <div className="rating-circle" style={{ backgroundColor: circleColor }}>
           {rating}%
         </div>
