@@ -6,7 +6,6 @@ import SearchKeyContext from "../context/searchKeyContext";
 import { useLanguage } from '../context/LanguageContext';
 
 
-
 export default function Search({ type = "movie" }) {
   const [searchKey, setSearchKey] = useState("");
 
@@ -51,7 +50,7 @@ export default function Search({ type = "movie" }) {
           console.log(`Error: ${err.message}`);
         }
       });
-  }, [searchKey, type, setSearch]);
+  }, [searchKey, type, setSearch,language]);
 
   // handle the search on click the button
   const handleSearch = () => {

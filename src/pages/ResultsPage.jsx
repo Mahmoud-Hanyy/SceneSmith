@@ -2,13 +2,18 @@ import React, { useContext, useState } from "react";
 import SearchContext from "../context/searchContext";
 import SearchKeyContext from "../context/searchKeyContext";
 import MainCards from "../components/MainCards";
+import { useNavigate } from "react-router";
 
 export default function ResultsPage() {
   const { search, _ } = useContext(SearchContext);
   const { searchKeyword, __ } = useContext(SearchKeyContext);
   const [searchResults, ___] = useState(search);
   console.log(search);
+  const navigate = useNavigate()
 
+  const handleNavigation = (type,id) => {
+      navigate(`/details/${type}/${id}`);
+  };
   return (
     <div className="container text-light">
       <div className="row my-2 justify-content-center">
@@ -17,10 +22,20 @@ export default function ResultsPage() {
         </div>
       </div>
 
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 my-4">
+      <div className="row">
         {searchResults?.map((result) => (
-          <div className="col" key={result.id}>
-            <MainCards data={result} />
+          <div className="col d-flex justify-content-center g-4" key={result.id}>
+            <MainCards data={result} onCardClick={() => {
+              const type = result.title ?  "movie":"tv" ;
+              handleNavigation(type,result.id)
+
+            }
+              
+            }
+
+             
+
+             />
           </div>
         ))}
       </div>

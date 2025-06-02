@@ -64,9 +64,9 @@ export default function TvShows() {
         {error && <p className="text-danger">{error}</p>}
         {!loading && !error && (
           <>
-            <div className="row row-cols-1 row-cols-md-5 g-4">
+            <div className="row">
               {shows.map((show) => (
-                <div className="col" key={show.id}>
+                <div className="col d-flex justify-content-center g-4" key={show.id}>
                   <MainCards
                     data={show}
                     category={"shows"}

@@ -19,7 +19,7 @@ const Watchlist = () => {
       <Row>
         {moviesCount
           ? moviesId.map((id) => (
-              <Col key={id} xs={12} sm={12} md={12} lg={6} className="d-flex">
+              <Col className=" d-flex justify-content-center g-4" key={id} xs={12} sm={12} md={12} lg={6}>
                 <MovieWatchlist movie={watchlist["movies"][id]} movieId={id} />
               </Col>
             ))

@@ -21,16 +21,16 @@ function MainCards({ data, category, onCardClick }) {
     category === "movies"
       ? dispatch(addMovieToWatchlist(data))
       : category === "shows"
-      ? dispatch(addShowToWatchlist(data))
-      : null;
+        ? dispatch(addShowToWatchlist(data))
+        : null;
   };
   const removeFromWatchlist = () => {
     const id = data.id;
     category === "movies"
       ? dispatch(removeMovieFromWatchlist(id))
       : category === "shows"
-      ? dispatch(removeShowFromWatchlist(id))
-      : null;
+        ? dispatch(removeShowFromWatchlist(id))
+        : null;
   };
 
   const imageUrl =
@@ -70,7 +70,7 @@ function MainCards({ data, category, onCardClick }) {
           </p>
         </div>
         <div className="content-right">
-          {watchlist[data.id] ? (
+          {watchlist && watchlist[data.id] ? (
             <FontAwesomeIcon
               icon={faHeartSolid}
               style={{ color: "#00acc1" }}
@@ -83,6 +83,7 @@ function MainCards({ data, category, onCardClick }) {
               onClick={() => addToWatchlist()}
             />
           )}
+
         </div>
       </div>
     </div>

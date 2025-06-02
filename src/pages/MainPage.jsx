@@ -69,9 +69,9 @@ function MainPage() {
         {!loading && !error && (
           <>
             {/* Responsive Movie Grid */}
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+            <div className="row  ">
               {movies.map((movie) => (
-                <div className="col" key={movie.id}>
+                <div className="col d-flex justify-content-center g-4" key={movie.id}>
                   <MainCards
                     data={movie}
                     category={"movies"}
