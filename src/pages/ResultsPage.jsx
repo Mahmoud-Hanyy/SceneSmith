@@ -20,7 +20,7 @@ export default function ResultsPage({ type }) {
       </div>
       <div className="row my-2 justify-content-center">
         <div className="col-12 col-md-8 text-center">
-          {search.length == 0? <h2>There is no result for: "{searchKeyword}"</h2> : <h2>The result for: {searchKeyword}</h2>}
+          {search?.length == 0? <h2>There is no result for: "{searchKeyword}"</h2> : <h2>The result for: {searchKeyword}</h2>}
           
         </div>
       </div>
