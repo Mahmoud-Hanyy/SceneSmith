@@ -25,12 +25,12 @@ export default function ResultsPage({ type }) {
         </div>
       </div>
 
-      <div className="row d-flex g-4 justify-content-center">
+      <div className="row ">
         {search?.map((result) => {
           const type = result.title ? "movie" : "tv";
           const mappedCategory = type === "movie" ? "movies" : "shows";
           return (
-            <div className="col-3" key={result.id}>
+            <div className="col d-flex g-4 justify-content-center" key={result.id}>
               <MainCards
                 data={result}
                 category={mappedCategory}
