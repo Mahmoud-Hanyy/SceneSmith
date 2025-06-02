@@ -89,6 +89,8 @@ function Navbar() {
               </ul>
             </li>
             <li className="nav-item">
+              <Link to="/">
+
               <button
                 className={`btn ${
                   activeTab === "Movies" ? "btn-light" : "btn-outline-light"
@@ -102,8 +104,10 @@ function Navbar() {
               >
                 Movies
               </button>
+              </Link>
             </li>
             <li className="nav-item">
+              <Link to="/tv-shows">
               <button
                 className={`btn ${
                   activeTab === "TV Shows" ? "btn-light" : "btn-outline-light"
@@ -117,6 +121,7 @@ function Navbar() {
               >
                 TV Shows
               </button>
+              </Link>
             </li>
             <li
               className="nav-item position-relative"
