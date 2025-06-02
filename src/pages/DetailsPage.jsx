@@ -34,7 +34,7 @@ export default function Details() {
   if (details) {
     return (
       <>
-        <DetailsCard show={details} />
+        <DetailsCard show={details} category={category} />
 
         {(type === "movie" || type === "tv") && (
           <>

@@ -1,9 +1,36 @@
 import { motion } from "framer-motion";
 import Rating from "./Rating";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addMovieToWatchlist,
+  addShowToWatchlist,
+  removeMovieFromWatchlist,
+  removeShowFromWatchlist,
+} from "../store/slices/watchlistSlice";
 
-export default function DetailsCard({ show: show }) {
+export default function DetailsCard({ show: show, category: category }) {
+
   const isSeries = !!show.first_air_date;
-
+  const watchlist = useSelector((state) => state.watchlist.watchlist[category]);
+  const dispatch = useDispatch();
+  const addToWatchlist = () => {
+    category === "movies"
+      ? dispatch(addMovieToWatchlist(show))
+      : category === "shows"
+        ? dispatch(addShowToWatchlist(show))
+        : null;
+  };
+  const removeFromWatchlist = () => {
+    const id = show.id;
+    category === "movies"
+      ? dispatch(removeMovieFromWatchlist(id))
+      : category === "shows"
+        ? dispatch(removeShowFromWatchlist(id))
+        : null;
+  };
   return (
     <motion.div
       className="container pt-5"
@@ -33,16 +60,42 @@ export default function DetailsCard({ show: show }) {
 
           <div className="col-12 col-md-9">
             <div className="card-body m-3">
-              <h1
-                className="display-6 fw-bold card-title"
-                style={{
-                  color: "white",
-                  fontSize: "34px",
-                  paddingBottom: "5px",
-                }}
-              >
-                {show.title || show.name}
-              </h1>
+              <div className="d-flex justify-content-between">
+
+                <h1
+                  className="display-6 fw-bold card-title"
+                  style={{
+                    color: "white",
+                    fontSize: "34px",
+                    paddingBottom: "5px",
+                  }}
+                >
+
+                  {show.title || show.name}
+                </h1>
+                <div className="card-title p-2">
+                  {watchlist[show.id] ? (
+                    <FontAwesomeIcon
+                      icon={faHeartSolid}
+                      style={{
+                        color: "#00acc1",
+                        transition: "transform 0.2s"
+                      }}
+                      onClick={() => removeFromWatchlist()}
+                      onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.2)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1.5)")}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      size="lg"
+                      icon={faHeartRegular}
+                      style={{ color: "#00acc1" }}
+                      onClick={() => addToWatchlist()}
+                    />
+                  )}
+                </div>
+              </div>
+
               <p
                 className="card-text text-muted"
                 style={{
@@ -77,14 +130,16 @@ export default function DetailsCard({ show: show }) {
                   {show.runtime
                     ? `${show.runtime} min`
                     : show.episode_run_time?.[0]
-                    ? `${show.episode_run_time[0]} min / ep`
-                    : "N/A"}
+                      ? `${show.episode_run_time[0]} min / ep`
+                      : "N/A"}
                 </p>
                 <p className="ps-5 small text-muted fst-italic">
                   <span className="fw-bold">Language</span>:{" "}
                   {show.spoken_languages.map((item) => item.name).join(", ")}
                 </p>
               </div>
+
+
               {isSeries && (
                 <>
                   <div className="d-flex w-100 d-flex justify-content-between text-muted small mt-2">
