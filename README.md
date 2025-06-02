@@ -19,7 +19,7 @@
 👨‍💻 Team
 - Mahmoud Hany
 - Abdelsalam Hassan
-- Ahmed Ramdan
+- Ahmed Ramadan
 - Kerolos Nabil
 - Abdelrahman Amr
 - Mohamed Hassan 
