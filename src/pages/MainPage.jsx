@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import MainCards from "../components/MainCards";
 import axiosInstance from "../apis/config";
 import { useNavigate } from "react-router";
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from "../context/LanguageContext";
+import Search from "../components/Search";
 
 function MainPage() {
   const [movies, setMovies] = useState([]);
@@ -15,48 +16,48 @@ function MainPage() {
   const onMovieClick = (movieId) => {
     navigate(`/details/movie/${movieId}`);
   };
-  const fetchMovies = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const res = await axiosInstance.get("/movie/now_playing", {
-        params: {
-          page: page,
-          language ,
-        },
-      });
-
-      if (res.data && Array.isArray(res.data.results)) {
-        setMovies(res.data.results);
-      } else if (res.data && res.data.status_code) {
-        setError(`API Error: ${res.data.status_message}`);
-        setMovies([]);
-      } else {
-        setError(
-          "Unexpected API response: 'results' is missing or not an array."
-        );
-        setMovies([]);
-      }
-    } catch (err) {
-      console.error("API Error Details:", {
-        message: err.message,
-        response: err.response ? err.response.data : "No response data",
-        status: err.response ? err.response.status : "No status",
-      });
-      setError("Failed to load movies. Please check the console for details.");
-      setMovies([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [page]);
 
   useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const res = await axiosInstance.get(
+          "/discover/movie?with_original_language=ar&region=EG&primary_release_date.gte=2020-01-01&primary_release_date.lte=2025-12-31",
+          {
+            params: {
+              page: page,
+              language,
+            },
+          }
+        );
+
+        if (res.data && Array.isArray(res.data.results)) {
+          setMovies(res.data.results);
+        } else if (res.data && res.data.status_code) {
+          setError(`API Error: ${res.data.status_message}`);
+          setMovies([]);
+        } else {
+          setError(
+            "Unexpected API response: 'results' is missing or not an array."
+          );
+          setMovies([]);
+        }
+      } catch (err) {
+        setError(err.message || "An error occurred while fetching movies.");
+        setMovies([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchMovies();
-  }, [fetchMovies,language]); // Dependency: fetchMovies (which depends on page)
+  }, [page, language]);
 
   return (
     <div className="text-light px-2 px-md-4">
+      <Search />
       {/* Heading */}
       <h2 className="fw-bold">Now Playing</h2>
       <hr className="border-light" />
@@ -71,7 +72,10 @@ function MainPage() {
             {/* Responsive Movie Grid */}
             <div className="row  ">
               {movies.map((movie) => (
-                <div className="col d-flex justify-content-center g-4" key={movie.id}>
+                <div
+                  className="col d-flex justify-content-center g-4"
+                  key={movie.id}
+                >
                   <MainCards
                     data={movie}
                     category={"movies"}

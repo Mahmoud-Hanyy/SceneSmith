@@ -1,10 +1,9 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import axiosInstance from "../apis/config";
 import { useNavigate } from "react-router";
 import SearchContext from "../context/searchContext";
 import SearchKeyContext from "../context/searchKeyContext";
-import { useLanguage } from '../context/LanguageContext';
-
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Search({ type = "movie" }) {
   const [searchKey, setSearchKey] = useState("");
@@ -22,7 +21,7 @@ export default function Search({ type = "movie" }) {
       .get(`/search/${type}`, {
         params: {
           query: searchKey,
-           language ,
+          language,
         },
       })
       .then((res) => {
@@ -38,19 +37,19 @@ export default function Search({ type = "movie" }) {
           console.log(
             `Error: ${err.response.status} - ${
               err.response.data.status_message || "Something went wrong."
-            }`,
+            }`
           );
         } else if (err.request) {
           // The request was made but no response was received
           console.log(
-            "Error: No response from server. Check your network connection.",
+            "Error: No response from server. Check your network connection."
           );
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log(`Error: ${err.message}`);
         }
       });
-  }, [searchKey, type, setSearch,language]);
+  }, [searchKey, type, setSearch, language]);
 
   // handle the search on click the button
   const handleSearch = () => {
@@ -73,10 +72,6 @@ export default function Search({ type = "movie" }) {
       navigate("/search-results");
     }
   };
-
-  useEffect(() => {
-    fetching();
-  }, [fetching, language]);
 
   return (
     <div className="row justify-content-center">

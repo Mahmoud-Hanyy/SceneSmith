@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from "../context/LanguageContext";
 
 function Navbar() {
   const [activeTab, setActiveTab] = useState("Movies");
   const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
-  
-  const handleTVShowsNavigate = (path) => {
+
+  const handleTVShowsNavigate = () => {
     navigate(`/tv-shows`);
   };
-  const handleMoviesNavigate = (path) => {
+  const handleMoviesNavigate = () => {
     navigate(`/`);
   };
   const watchlistCount = useSelector((state) => state.watchlist.watchlistCount);
@@ -60,34 +60,34 @@ function Navbar() {
           <ul className="navbar-nav ms-auto gap-3 align-items-center">
             <li className="nav-item dropdown">
               <Link
-              style={{ color: "white" }}
-              className="nav-link dropdown-toggle"
-              to="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+                style={{ color: "white" }}
+                className="nav-link dropdown-toggle"
+                to="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
                 {language.toUpperCase()}
               </Link>
-            <ul className="dropdown-menu">
+              <ul className="dropdown-menu">
                 <li>
                   <button
                     className="dropdown-item"
-                    onClick={() => setLanguage('en')}
+                    onClick={() => setLanguage("en")}
                   >
-                  English
+                    English
                   </button>
                 </li>
                 <li>
                   <button
-                  className="dropdown-item"
-                  onClick={() => setLanguage('ar')}
+                    className="dropdown-item"
+                    onClick={() => setLanguage("ar")}
                   >
-                  العربية
-                </button>
+                    العربية
+                  </button>
                 </li>
-            </ul>
-          </li>
+              </ul>
+            </li>
             <li className="nav-item">
               <button
                 className={`btn ${
